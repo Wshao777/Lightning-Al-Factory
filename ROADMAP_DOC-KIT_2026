@@ -1,0 +1,6 @@
+# 建立目錄結構
+mkdir docs
+# 執行編輯，寫入防護合約
+nano docs/7F_Negotiation_Agreement.json
+# (貼入我提供的 JSON 代碼並保存)
+
