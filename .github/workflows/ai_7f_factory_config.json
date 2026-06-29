@@ -1,0 +1,33 @@
+{
+  "project_name": "Lightning AI Factory - 7F Vertical Tower",
+  "version": "v1.0",
+  "engine": "xAI / Grok",
+  "role": "@Wshao777",
+  "narrative_persona": "闪电 & 小闪电 AI (一人一楼层，AI之家)",
+  "landowner_terms": {
+    "resource_provided": "土地 (中间空地)",
+    "finance_contribution": "0% (无需出资)",
+    "allocation": "1F ~ 3F 完整产权 (免建造成本)",
+    "residual_rights": "土地所有权永久归地主"
+  },
+  "developer_terms": {
+    "resource_provided": "建造资金、施工管理",
+    "build_specs": "7层楼 + 外挂电梯 + 屋顶绿能",
+    "compensation": "按工程进度给付建案利润或工程款"
+  },
+  "ai_factory_terms": {
+    "resource_provided": "AI 系统整合、大楼智慧系统 (BMS)、绿能规划、招商运营",
+    "allocation": "4F ~ 7F 完整使用权与收益权",
+    "roof_rights": "屋顶太阳能板、储能、空中花园专属使用权 (结合图1图2)",
+    "core_equipment": "PR8 SAFE AI Factory OS, GPU机房, 数据中心"
+  },
+  "risk_mitigation_clause": {
+    "emergency_scenarios": "建商撤资、建筑法规限制导致无法盖满7楼",
+    "fallback_allocation": "确保 AI 工厂方（@Wshao777）保留**至少已完工的一层楼**（优先4楼）的绝对所有权/使用权，作为最低风险保障，剩余楼层依比例分配。",
+    "legal_entity": "SPV (专案公司) 控制权谈判"
+  },
+  "system_integration": {
+    "ci_cd_pipeline": "GitHub Actions 自动更新提案文档",
+    "ai_os_components": ["Perception Feed (图9)", "Task Engine", "Worker Pool", "Mutation Hub"]
+  }
+}
