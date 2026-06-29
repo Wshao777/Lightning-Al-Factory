@@ -1,0 +1,130 @@
+1F~2F（或1F~3F）→ 地主
+3F~7F → AI Factory
+Roof → 太陽能＋綠能設備
+
+約可裝設容量
+年發電量（約）
+100 m²
+約 15 kW
+約 18,000～22,000 度/年
+200 m²
+約 30 kW
+約 36,000～44,000 度/年
+300 m²
+約 45 kW
+約 54,000～66,000 度/年
+
+AI Control Tower
+│
+├── Building Monitor
+├── Energy Monitor
+├── Elevator Monitor
+├── Security Monitor
+├── AI Factory
+├── Finance Dashboard
+├── Digital Twin
+└── Maintenance Center
+
+地主
+      │
+      ▼
+合作意向
+
+      │
+      ▼
+建築師初步規劃
+
+      │
+      ▼
+建商評估
+
+      │
+      ▼
+財務評估
+
+      │
+      ▼
+建照申請
+
+      │
+      ▼
+施工
+
+      │
+      ▼
+AI 系統建置
+
+      │
+      ▼
+驗收
+
+      │
+      ▼
+正式營運
+
+Roof
+太陽能
+儲能
+空中花園
+
+7F
+AI Showcase
+
+6F
+GPU Room
+
+5F
+AI Factory
+
+4F
+Training Center
+
+3F
+Office
+
+1F~2F(或1F~3F)
+地主空間
+
+ROADMAP_DOC-KIT_2026/
+│
+├── 01_Project
+├── 02_Land
+├── 03_Architecture
+├── 04_Structure
+├── 05_Energy
+├── 06_AI_Factory
+├── 07_Finance
+├── 08_Legal
+├── 09_Meeting_Minutes
+├── 10_Renderings
+└── 11_Roadmap
+
+ROADMAP_DOC-KIT_2026/
+├── 7F_AI_Factory/                  <-- 專門放這個專案的資料夾
+│   ├── config/
+│   │   ├── ai_7f_factory_config.json   <-- (上面提供的 JSON 腳本)
+│   │   └── startup_agent.py           <-- (上面提供的 Python 運行邏輯)
+│   ├── docs/                        <-- 存放談判用的 PDF/PPT
+│   │   ├── 01_地主提案說明.pdf
+│   │   ├── 02_風險對策與一層樓保障條款.pdf
+│   │   └── 03_合約要點(律師審閱版).docx
+│   ├── images/                      <-- 存放圖1~圖6的規劃藍圖
+│   └── README.md                    <-- 專案說明，誰是主導者（@Wshao777）
+├── ROADMAP.md                        <-- 存放總體的 AI 發展時程圖
+└── .github/workflows/
+    └── auto_gen_docs.yml             <-- 可以設定自動化流程，當更新 JSON 時自動生成 PDF
+
+/Lightning_AI_Full/
+├── public/                 # 公開層
+│   ├── api/                # FastAPI 服務介面
+│   ├── docs/               # 專案文件
+│   └── example/            # 智慧樓宇範例程式
+├── collaboration/          # 協作層 (各 AI Agent)
+│   ├── coordinator.py      # 任務調度
+│   ├── architect.py        # 架構圖與模組規劃
+│   └── executor.py         # 實際執行引擎
+└── private_core/           # 私有核心 (禁止 Git Commit)
+    ├── model_routing.py    # 權重與模型配置
+    ├── memory.py           # 長期記憶庫
+    └── secrets.env         # 敏感配置 (隱藏)
+
