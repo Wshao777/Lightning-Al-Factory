@@ -1,0 +1,6 @@
+# 建立目錄結構
+mkdir dashboard
+# 執行編輯，寫入上述的 index.html
+nano dashboard/index.html 
+# (貼入我提供的 HTML 代碼並保存)
+
