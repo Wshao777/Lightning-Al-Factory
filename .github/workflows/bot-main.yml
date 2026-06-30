@@ -1,0 +1,29 @@
+name: Lightning AI Factory CI/CD
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: |
+        chmod +x Commercial-Al-Smart/setup.sh
+        ./Commercial-Al-Smart/setup.sh
+
+    - name: Run tests
+      run: |
+        # Placeholder for tests
+        echo "Running tests..."
+        # pytest
