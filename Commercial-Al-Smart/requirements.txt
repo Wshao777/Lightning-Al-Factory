@@ -1,0 +1,7 @@
+fastapi==0.138.2
+uvicorn==0.49.0
+httpx==0.28.1
+python-dotenv==1.2.2
+# Future-proofing for database integration mentioned in core directives
+sqlalchemy==2.0.51
+asyncpg==0.31.0
