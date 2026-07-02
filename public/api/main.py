@@ -5,6 +5,7 @@ from contextlib import asynccontextmanager
 from typing import Optional
 from dotenv import load_dotenv
 from pathlib import Path
+from sqlalchemy.ext.asyncio import create_async_engine, AsyncEngine
 
 # Use absolute path for .env file
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -17,7 +18,6 @@ class AsyncAPIClient:
     Handles authentication and identity propagation.
     """
     def __init__(self, limits: Optional[httpx.Limits] = None):
-        # Good practice: pool_recycle and pool_pre_ping equivalents or timeouts
         self.client = httpx.AsyncClient(
             limits=limits or httpx.Limits(max_keepalive_connections=5, max_connections=10),
             timeout=httpx.Timeout(10.0, connect=5.0)
@@ -31,15 +31,12 @@ class AsyncAPIClient:
         Proxies an incoming request to an external service.
         """
         headers = dict(request.headers)
-        # Remove host header to avoid issues with some servers
         headers.pop("host", None)
 
-        # Propagate identity if available
         federated_identity = request.headers.get("X-Federated-Identity")
         if federated_identity:
             headers["X-Federated-Identity"] = federated_identity
 
-        # Add internal API key for the federated service
         api_key = os.getenv("FEDERATED_API_KEY")
         if api_key:
             headers["Authorization"] = f"Bearer {api_key}"
@@ -57,18 +54,34 @@ class AsyncAPIClient:
         except httpx.RequestError as exc:
             raise HTTPException(status_code=502, detail=f"Error contacting federated service: {exc}")
 
-# Global API Client
+# Global state
 api_client: Optional[AsyncAPIClient] = None
+db_engine: Optional[AsyncEngine] = None
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Initialize resources
+    # Initialize Federated API Client
     global api_client
     api_client = AsyncAPIClient()
+
+    # Initialize SQLAlchemy AsyncEngine
+    global db_engine
+    database_url = os.getenv("DATABASE_URL")
+    if database_url:
+        db_engine = create_async_engine(
+            database_url,
+            pool_recycle=3600,
+            pool_pre_ping=True,
+            echo=False
+        )
+
     yield
+
     # Clean up resources
     if api_client:
         await api_client.close()
+    if db_engine:
+        await db_engine.dispose()
 
 app = FastAPI(title="Commercial-Al-Smart Federated APL", lifespan=lifespan)
 
@@ -85,7 +98,6 @@ async def federated_proxy(service_name: str, path: str, request: Request):
     """
     Smart Routing: Dynamically routes requests based on service_name.
     """
-    # Dynamic routing logic - Consider moving to config/registry later
     service_urls = {
         "service-a": os.getenv("EXTERNAL_SERVICE_A_URL", "http://localhost:8001"),
         "service-b": os.getenv("EXTERNAL_SERVICE_B_URL", "http://localhost:8002"),
@@ -102,8 +114,6 @@ async def federated_proxy(service_name: str, path: str, request: Request):
 
     proxied_response = await api_client.proxy_request(request.method, target_url, request)
 
-    # Correctly propagate status code, headers and content
-    # Exclude certain headers like 'content-encoding', 'transfer-encoding', 'connection'
     excluded_headers = ["content-encoding", "transfer-encoding", "connection", "keep-alive", "proxy-authenticate", "proxy-authorization", "te", "trailers", "upgrade"]
     headers = {k: v for k, v in proxied_response.headers.items() if k.lower() not in excluded_headers}
 
