@@ -1,0 +1,6 @@
+private_core/secrets.env
+__pycache__/
+*.pyc
+.pytest_cache/
+*.log
+.DS_Store
